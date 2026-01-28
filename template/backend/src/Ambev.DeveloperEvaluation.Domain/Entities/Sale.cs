@@ -24,39 +24,25 @@ public class Sale : BaseEntity
 
     public string BranchName { get; set; } = string.Empty;
 
-    /// <summary>
-    /// Gets or sets the sale status
-    /// </summary>
+
     public SaleStatus Status { get; set; }
 
-    /// <summary>
-    /// Gets or sets the collection of sale items
-    /// </summary>
+
     public List<SaleItem> Items { get; set; } = new List<SaleItem>();
 
-    /// <summary>
-    /// Gets or sets the date and time when the sale was created.
-    /// </summary>
+ 
     public DateTime CreatedAt { get; set; }
 
-    /// <summary>
-    /// Gets or sets the date and time of the last update to the sale.
-    /// </summary>
+ 
     public DateTime? UpdatedAt { get; set; }
 
-    /// <summary>
-    /// Calculates the total amount of the sale (sum of all items)
-    /// </summary>
+
     public decimal TotalAmount => Items?.Where(i => !i.IsCancelled).Sum(i => i.TotalAmount) ?? 0;
 
-    /// <summary>
-    /// Indicates whether the sale is cancelled
-    /// </summary>
+
     public bool IsCancelled => Status == SaleStatus.Cancelled;
 
-    /// <summary>
-    /// Initializes a new instance of the Sale class.
-    /// </summary>
+
     public Sale()
     {
         CreatedAt = DateTime.UtcNow;
@@ -65,9 +51,7 @@ public class Sale : BaseEntity
         Items = new List<SaleItem>();
     }
 
-    /// <summary>
-    /// Adds an item to the sale and applies discount rules
-    /// </summary>
+
     /// <param name="item">The item to add</param>
     public void AddItem(SaleItem item)
     {
@@ -84,9 +68,7 @@ public class Sale : BaseEntity
         UpdatedAt = DateTime.UtcNow;
     }
 
-    /// <summary>
-    /// Updates an existing item in the sale
-    /// </summary>
+
     /// <param name="itemId">The item ID to update</param>
     /// <param name="quantity">New quantity</param>
     /// <param name="unitPrice">New unit price</param>
@@ -117,9 +99,7 @@ public class Sale : BaseEntity
         UpdatedAt = DateTime.UtcNow;
     }
 
-    /// <summary>
-    /// Cancels a specific item in the sale
-    /// </summary>
+
     /// <param name="itemId">The item ID to cancel</param>
     public void CancelItem(Guid itemId)
     {
@@ -138,18 +118,14 @@ public class Sale : BaseEntity
         UpdatedAt = DateTime.UtcNow;
     }
 
-    /// <summary>
-    /// Cancels the entire sale
-    /// </summary>
+
     public void Cancel()
     {
         Status = SaleStatus.Cancelled;
         UpdatedAt = DateTime.UtcNow;
     }
 
-    /// <summary>
-    /// Validates the sale
-    /// </summary>
+
     public void Validate()
     {
         if (string.IsNullOrWhiteSpace(SaleNumber))
