@@ -12,7 +12,7 @@ public class CreateSaleProfile : Profile
     {
         CreateMap<CreateSaleCommand, Sale>();
         CreateMap<CreateSaleItemDto, SaleItem>();
-        CreateMap<Sale, CreateSaleResult>
+        CreateMap<Sale, CreateSaleResult>()
             .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.TotalAmount));
     }
 }
