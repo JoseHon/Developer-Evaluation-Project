@@ -12,10 +12,25 @@ public interface ISaleRepository
     Task<Sale> CreateAsync(Sale sale, CancellationToken cancellationToken = default);
 
 
+    /// <summary>
+    /// Retrieves a sale by its unique identifier
+    /// </summary>
+    /// <param name="id">The unique identifier of the sale</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>The sale if found, null otherwise</returns>
+    Task<Sale?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves a sale by its sale number
+    /// </summary>
+    /// <param name="saleNumber">The sale number to search for</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>The sale if found, null otherwise</returns>
+    Task<Sale?> GetBySaleNumberAsync(string saleNumber, CancellationToken cancellationToken = default);
+
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A list of all sales</returns>
     Task<IEnumerable<Sale>> GetAllAsync(CancellationToken cancellationToken = default);
-
 
     /// <param name="sale">The sale to update</param>
     /// <param name="cancellationToken">Cancellation token</param>
